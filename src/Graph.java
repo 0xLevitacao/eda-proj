@@ -14,7 +14,11 @@ public class Graph {
     }
 
     // list of all cities (vertices)
-    private List<City> cities;
+    public List<City> cities;
+    // getter
+    public List<City> getCities() {
+        return cities;
+    }
     // adjacency list representation (city index -> list of neighbor indices and distances)
     private Map<Integer, List<Edge>> adjacencyList;
     private double autonomy; // store autonomy used to create the graph
@@ -38,7 +42,6 @@ public class Graph {
     }
 
     // load graph from file
-    @SuppressWarnings("unchecked")
     public void loadFromFile(String filename) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
             // read autonomy, cities and adjacency list
@@ -147,7 +150,7 @@ public class Graph {
 
         // priority queue to get the minimum distance vertex
         PriorityQueue<Integer> queue = new PriorityQueue<>(
-                (a, b) -> Double.compare(distances[a], distances[b])
+                Comparator.comparingDouble(a -> distances[a])
         );
         queue.offer(source);
 

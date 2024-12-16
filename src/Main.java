@@ -1,19 +1,22 @@
-import java.io.File;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Graph graph = new Graph();
-        String graphFile = "src/resources/savedGraph.dat";
+        // Set Nimbus look and feel
+        SwingUtilities.invokeLater(() -> {
+            try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Nimbus look and feel not available");
+            }
 
-        // build new graph and save it
-        graph.buildFromCSV("src/resources/worldcities.csv", 300);
-        graph.saveToFile(graphFile);
-
-        // test the shortest path functionality
-        System.out.println("\nTesting shortest paths:");
-        graph.findShortestPath("Entroncamento", "Paris");
-
-        // TEST - print connections from Lisbon
-        //graph.printCityConnections("Lisbon");
+            // Create and show GUI
+            new RouteCalculatorGUI().setVisible(true);
+        });
     }
 }
